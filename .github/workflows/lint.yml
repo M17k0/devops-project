@@ -22,7 +22,7 @@ jobs:
       - name: Lint
         run: npm run lint
   
-    editorconfig:
+  editorconfig:
     runs-on: ubuntu-latest
 
     steps:
