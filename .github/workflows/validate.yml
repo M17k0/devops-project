@@ -8,17 +8,25 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  sonarqube:
-    name: SonarQube
+  sonar-cloud:
+    name: Sonar Cloud
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  
-      - name: SonarQubeScan
+          fetch-depth: 0
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage
+
+      - name: Sonar cloud scan
         uses: SonarSource/sonarqube-scan-action@v4
-        env: 
+        env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: https://sonarcloud.io
-          SONAR_PROJECT_KEY: M17k0_devops-project
-          SONAR_ORGANIZATION: m17k0
+          GITHUB_REF: ${{ github.ref }}
+        with:
+          args: >
+            -Dsonar.python.coverage.reportPaths=coverage.xml
