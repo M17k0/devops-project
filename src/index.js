@@ -8,6 +8,10 @@ app.get('/', (_req, res) => {
   res.send('Hello, Devops Project!\n');
 });
 
+app.get('/test', (_req, res) => {
+  res.send('Hello from the sets endpoint :D\n');
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
