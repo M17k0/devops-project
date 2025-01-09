@@ -50,4 +50,4 @@ jobs:
 
   docker:
     needs: [sast]
-    uses: ./.github/workflows/docker-image.yml  
+    uses: ./.github/workflows/docker-image.yml
