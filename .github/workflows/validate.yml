@@ -37,9 +37,15 @@ jobs:
         with:
           node-version: 'latest'
 
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        with:
-          args: test
+      - name: Install Snyk
+        run: npm install snyk@latest
+
+      - name: Verify Node and npm
+        run: |
+          node --version
+          npm --version
+
+      - name: Snyk test
+        run: npx snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
