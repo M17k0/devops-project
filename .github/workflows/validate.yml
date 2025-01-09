@@ -2,6 +2,11 @@ name: Validate code
 
 on:
   workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
+      SNYK_TOKEN:
+        required: true
 
 jobs:
   sonar-cloud:
