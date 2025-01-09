@@ -1,11 +1,7 @@
 name: Validate code
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_call:
 
 jobs:
   sonar-cloud:
