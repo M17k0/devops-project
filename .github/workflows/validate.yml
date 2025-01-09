@@ -1,7 +1,7 @@
 name: Validate code
 
 on:
-  workfow_call:
+  workflow_call:
 
 jobs:
   build-and-analyze:
