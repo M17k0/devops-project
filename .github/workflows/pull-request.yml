@@ -1,0 +1,23 @@
+name: Pull request
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+
+  test:
+    uses: ./.github/workflows/test.yml
+
+  database-test:
+    uses: ./.github/workflows/migrations-test.yml
+    needs: [lint, test]
+
+  sast:
+    uses: ./.github/workflows/validate.yml
+    needs: [database-test]
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
