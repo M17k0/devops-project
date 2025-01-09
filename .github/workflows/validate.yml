@@ -38,7 +38,7 @@ jobs:
           node-version: 'latest'
 
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@v3
+        uses: snyk/actions/node@master
         with:
           args: test
         env:
