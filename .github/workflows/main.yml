@@ -1,11 +1,9 @@
-name: CI Workflow
+name: CI CD Workflow
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    types: [opened, synchronize, reopened]
 
 jobs:
   lint:
@@ -60,13 +58,6 @@ jobs:
     needs: [docker]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: |
-          npm install
-
       - name: Trigger Render Deployment
         env:
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
