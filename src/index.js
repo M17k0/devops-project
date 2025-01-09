@@ -8,8 +8,4 @@ app.get('/', (_req, res) => {
   res.send('Hello, Devops Project!\n');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
-
 export default app;
