@@ -1,0 +1,27 @@
+name: Validate code
+
+on:
+  workfow_call:
+
+jobs:
+  build-and-analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java (Required for SonarScanner)
+        uses: actions/setup-java@v4
+        with:
+          java-version: 'latest'
+
+      - name: Run SonarCloud analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          npx sonar-scanner \
+            -Dsonar.projectKey=M17k0_devops-project \
+            -Dsonar.organization=m17k0 \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
