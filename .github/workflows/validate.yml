@@ -17,16 +17,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download coverage artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage
-
       - name: Sonar cloud scan
         uses: SonarSource/sonarqube-scan-action@v4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_REF: ${{ github.ref }}
-        with:
-          args: >
-            -Dsonar.python.coverage.reportPaths=coverage.xml
