@@ -14,44 +14,9 @@ jobs:
   test:
     uses: ./.github/workflows/test.yml
 
-  sonar-cloud:
-    name: Sonar Cloud
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Sonar cloud scan
-        uses: SonarSource/sonarqube-scan-action@v4
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_REF: ${{ github.ref }}
-
-  snyk-scan:
-    name: Snyk Scan
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 'latest'
-
-      - name: Install Snyk
-        run: npm install snyk@latest
-
-      - name: Verify Node and npm
-        run: |
-          node --version
-          npm --version
-
-      - name: Snyk test
-        run: npx snyk test
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  sast:
+    uses: ./.github/workflows/validate.yml
+    needs: [lint, test]
+    with:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
