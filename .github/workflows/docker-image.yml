@@ -9,7 +9,7 @@ name: Build and Push Docker Image to Docker Hub
 #       - main
 
 on:
-  workflow_call
+  workflow_call:
     secrets:
       DOCKER_USERNAME:
         required: true
